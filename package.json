@@ -1,0 +1,24 @@
+{
+  "name": "delilah-resto_acamica",
+  "version": "1.0.0",
+  "description": "Último proyecto de la carrera Full Stack Developer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabrielLaTorre/delilah-Resto_Acamica.git"
+  },
+  "author": "Gabriel La Torre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GabrielLaTorre/delilah-Resto_Acamica/issues"
+  },
+  "homepage": "https://github.com/GabrielLaTorre/delilah-Resto_Acamica#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.13"
+  }
+}
