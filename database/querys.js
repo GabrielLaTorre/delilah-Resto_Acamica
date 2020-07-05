@@ -7,6 +7,11 @@ async function getProducts() {
     return listProducts;
 }
 
+async function getProductById(id) {
+    const [productById] = await sequelize.query(SQL`SELECT * FROM platos WHERE id_plato = ${id}`)
+    return productById;
+}
+
 async function createProduct(nombre_plato, precio) {
     try {
         const [uploadedProduct] = await sequelize.query(SQL`INSERT INTO platos (nombre_plato, precio_plato) VALUES (${nombre_plato}, ${precio})`);
@@ -16,4 +21,18 @@ async function createProduct(nombre_plato, precio) {
     }
 }
 
-module.exports = {getProducts, createProduct};
+async function updateProduct(id) {
+    const productUpdated = {}
+    sequelize.query(SQL`UPDATE platos SET ${propiedad} = ${element} WHERE id_plato = ${id}`)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+    // for (const prop in obj) {
+    //     const propiedad = prop;
+    //     const element = obj[prop];
+    //     sequelize.query(SQL`UPDATE platos SET ${propiedad} = ${element} WHERE id_plato = ${id}`)
+    //     .then(res => console.log(res))
+    //     .catch(err => console.log(err))
+    // }
+}
+
+module.exports = {getProducts, createProduct, getProductById, updateProduct};
