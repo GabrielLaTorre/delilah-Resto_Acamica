@@ -21,18 +21,17 @@ async function createProduct(nombre_plato, precio) {
     }
 }
 
-async function updateProduct(id) {
+async function updateProduct(obj, id) {
     const productUpdated = {}
-    sequelize.query(SQL`UPDATE platos SET ${propiedad} = ${element} WHERE id_plato = ${id}`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-    // for (const prop in obj) {
-    //     const propiedad = prop;
-    //     const element = obj[prop];
-    //     sequelize.query(SQL`UPDATE platos SET ${propiedad} = ${element} WHERE id_plato = ${id}`)
-    //     .then(res => console.log(res))
-    //     .catch(err => console.log(err))
-    // }
+    // sequelize.query(SQL`UPDATE platos SET precio_plato = 100 WHERE id_plato = ${id}`)
+    // .then(res => console.log(res))
+    // .catch(err => console.log(err))
+    for (const prop in obj) {
+        const element = obj[prop];
+        sequelize.query(SQL`UPDATE platos SET ${prop} = ${element} WHERE id_plato = ${id}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
 }
 
 module.exports = {getProducts, createProduct, getProductById, updateProduct};
