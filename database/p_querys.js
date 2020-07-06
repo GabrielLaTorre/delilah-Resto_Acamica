@@ -28,10 +28,18 @@ async function updateProduct(obj, id) {
     // .catch(err => console.log(err))
     for (const prop in obj) {
         const element = obj[prop];
+        console.log(prop);
         sequelize.query(SQL`UPDATE platos SET ${prop} = ${element} WHERE id_plato = ${id}`)
         .then(res => console.log(res))
         .catch(err => console.log(err))
     }
 }
 
-module.exports = {getProducts, createProduct, getProductById, updateProduct};
+async function deleteProduct(id) {
+    sequelize.query(SQL`DELETE FROM platos WHERE id_plato = ${id}`)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+}
+
+
+module.exports = {getProducts, createProduct, getProductById, updateProduct, deleteProduct};
