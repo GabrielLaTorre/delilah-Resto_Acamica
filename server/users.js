@@ -7,7 +7,7 @@ router.post('/login', (req, res) => {
     const userLogin = req.body;
     userFound = validateUser(userLogin);
     userFound
-    .then(user => res.status(200).send(user))
+    .then(user => res.status(200).send(`Bienvenido ${user}!`))
     .catch(err => console.log(err))
 })
 
