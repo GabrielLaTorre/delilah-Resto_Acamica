@@ -6,36 +6,43 @@ router.get('/', (req, res) => {
     const products = Pquerys.getProducts();
     products
     .then(list => res.status(200).send(list))
+    .catch(err => console.log(err))
 })
 
 router.get('/:id', (req, res) => {
     const id_product = req.params.id;
     const productFound = Pquerys.getProductById(id_product);
     productFound
-    .then(product => res.status(200).send(product));
+    .then(product => res.status(200).send(product))
+    .catch(err => res.status(400).send(`Producto inexistente ${err}`))
 })
 
 router.post('/', (req, res) => {
-    const {nombre_plato, precio_plato} = req.body;
-    const newProduct = Pquerys.createProduct(nombre_plato, precio_plato);
+    const newPlato = req.body;
+    const newProduct = Pquerys.createProduct(newPlato);
     newProduct
-    .then(product => {
-        console.log(product); // <--- Devuelve el ID del producto creado
+    .then(() => {
         res.status(201).send(req.body);
     })
+    .catch(err =>  res.status(400).send(`Algo salió mal :( 
+        ${err}`))
 })
 
 router.put('/:id', (req, res) => {
     const id_plato = req.params.id;
-    Pquerys.updateProduct(req.body, id_plato);
-    res.status(200).send('Ok');
+    const updated = Pquerys.updateProduct(req.body, id_plato);
+    updated
+    .then(() => res.status(201).send('Producto modificado satisfactoriamente!'))
+    .catch(err => res.status(400).send(`Algo salió mal :( 
+        ${err}
+    )`))
 })
 
 router.delete('/:id', (req, res) => {
     const id_plato = req.params.id;
     const deleted = Pquerys.deleteProduct(id_plato);
     deleted
-    .then(result => res.status(200).send(`Producto con id ${id_plato}, eliminado satisfactoriamente!`))
+    .then(() => res.status(200).send(`Producto con id ${id_plato}, eliminado satisfactoriamente!`))
     .catch(err => res.status(500).send(err))
 })
 
