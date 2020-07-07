@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-
 const database = 'delilah_resto';
 const username = 'root';
 const password = 'root';
@@ -74,6 +73,7 @@ sequelize.sync()
 
 
 module.exports = {
+    Sequelize: Sequelize,
     sequelize: sequelize,
     User: User,
     Products: Products

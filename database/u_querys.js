@@ -1,6 +1,20 @@
 const SQL = require('sql-template-strings');
-const {sequelize, User} = require('./db_connection');
+const {Sequelize, sequelize, User} = require('./db_connection');
+const Op = Sequelize.Op;
 
+async function getUser(obj) {
+    const {nombre_usuario, password} = obj;
+    const userFound = await User.findOne({
+        where: {
+            [Op.and]: [
+                {nombre_usuario: nombre_usuario},
+                {password: password}
+            ]
+        }
+    });
+    console.log(); //Averiguar como recibir unicamente una referencia al usuario encontrado y no todo el modelo
+    return userFound;
+}
 
 async function createUser(obj) {
     const userCreated = User.create(obj)
@@ -18,5 +32,6 @@ async function updateUser(obj,id) {
 
 module.exports = {
     createUser: createUser,
-    updatedUser: updateUser
+    updatedUser: updateUser,
+    getUser: getUser
 }

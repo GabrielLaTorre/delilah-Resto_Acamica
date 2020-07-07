@@ -1,6 +1,15 @@
 const {Router} = require('express');
 const router = Router();
-const {createUser, updatedUser} = require('../database/u_querys');
+const {createUser, updatedUser, getUser} = require('../database/u_querys');
+const validateUser = require('./auth');
+
+router.post('/login', (req, res) => {
+    const userLogin = req.body;
+    userFound = validateUser(userLogin);
+    userFound
+    .then(user => res.status(200).send(user))
+    .catch(err => console.log(err))
+})
 
 router.post('/register', (req, res) => {
     const newUser = req.body;
