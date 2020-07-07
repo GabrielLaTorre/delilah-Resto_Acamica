@@ -1,6 +1,4 @@
 const express = require('express');
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('mysql://root:root@localhost:3306/delilah_resto');
 const products = require('./server/products');
 const users = require('./server/users');
 const bodyParser = require('body-parser');

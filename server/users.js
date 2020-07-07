@@ -1,12 +1,22 @@
 const {Router} = require('express');
 const router = Router();
-const uQuery = require('../database/u_querys');
+const {createUser, updatedUser} = require('../database/u_querys');
 
 router.post('/register', (req, res) => {
     const newUser = req.body;
-    const userCreated = uQuery.createUser(newUser);
-    userCreated
+    const created = createUser(newUser);
+    created
     .then(user => res.status(201).send(user))
+    .catch(err => console.log(err))
+})
+
+router.put('/:id', (req, res) => {
+    const id_usuario = req.params.id;
+    const changes = req.body;
+    console.log(changes);
+    const updated = updatedUser(changes, id_usuario);
+    updated
+    .then(() => res.status(200).send(`Usuario con id ${id_usuario}, modificado exitosamente!`))
     .catch(err => console.log(err))
 })
 

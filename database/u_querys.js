@@ -1,16 +1,22 @@
 const SQL = require('sql-template-strings');
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('mysql://root:root@localhost:3306/delilah_resto');
+const {sequelize, User} = require('./db_connection');
+
 
 async function createUser(obj) {
-    let user;
-    for (let prop in obj) {
-        const element = obj[prop];
-        user =+ await sequelize.query(SQL`INSERT INTO usuarios (${prop}) VALUES (${element})`)
-    }
-    return user;
+    const userCreated = User.create(obj)
+    return userCreated;
+}
+
+async function updateUser(obj,id) {
+    const updatedUser = await User.update(obj, {
+        where: {
+            id_usuario: id
+        }
+    })
+    return updateUser;
 }
 
 module.exports = {
-    createUser
+    createUser: createUser,
+    updatedUser: updateUser
 }

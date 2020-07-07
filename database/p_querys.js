@@ -1,6 +1,5 @@
 const SQL = require('sql-template-strings');
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('mysql://root:root@localhost:3306/delilah_resto');
+const {sequelize} = require('./db_connection');
 
 async function getProducts() {
     const [listProducts] = await sequelize.query(SQL`SELECT * FROM platos`, { type: sequelize.QueryTypes.SELECT});
