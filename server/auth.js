@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
 const jwtSignature = 'Delilah-Acamica2020';
-const uQuerys = require('../database/u_querys');
+const { getUser } = require('../database/u_querys');
 
 async function validateUser(user) {
-    const validatedUser = await uQuerys.getUser(user)
+    const validatedUser = await getUser(user)
     if(!validatedUser) {
-        return 'Usuario inexistente'
+        return [null];
     }
-    const userLogged = await validatedUser.nombre_usuario;
-    console.log(userLogged);
-    return userLogged;
+    const userLogged = validatedUser.nombre_usuario;
+    const msj = "HOLI"; // <-- Acá iria el JWT
+    return [userLogged, msj];
 }
 module.exports = validateUser;

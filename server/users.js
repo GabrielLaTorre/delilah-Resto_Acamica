@@ -1,14 +1,16 @@
 const {Router} = require('express');
 const router = Router();
-const {createUser, updatedUser, getUser} = require('../database/u_querys');
+const {createUser, updateUser} = require('../database/u_querys');
 const validateUser = require('./auth');
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
     const userLogin = req.body;
-    userFound = validateUser(userLogin);
-    userFound
-    .then(user => res.status(200).send(`Bienvenido ${user}!`))
-    .catch(err => console.log(err))
+    [userLogged, msj] = await validateUser(userLogin);
+    if(!userLogged) {
+        res.status(400).send('Usuario y/o contraseña incorrectos...');
+        return;
+    } 
+    res.status(200).send(`Bienvenido ${userLogged} y ${msj}!`);
 })
 
 router.post('/register', (req, res) => {
@@ -23,7 +25,7 @@ router.put('/:id', (req, res) => {
     const id_usuario = req.params.id;
     const changes = req.body;
     console.log(changes);
-    const updated = updatedUser(changes, id_usuario);
+    const updated = updateUser(changes, id_usuario);
     updated
     .then(() => res.status(200).send(`Usuario con id ${id_usuario}, modificado exitosamente!`))
     .catch(err => console.log(err))

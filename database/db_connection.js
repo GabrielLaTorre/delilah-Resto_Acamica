@@ -72,9 +72,4 @@ const Products = sequelize.define('platos', {
 sequelize.sync()
 
 
-module.exports = {
-    Sequelize: Sequelize,
-    sequelize: sequelize,
-    User: User,
-    Products: Products
-}
+module.exports = { Sequelize, sequelize, User, Products }

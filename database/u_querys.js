@@ -12,7 +12,6 @@ async function getUser(obj) {
             ]
         }
     });
-    console.log(); //Averiguar como recibir unicamente una referencia al usuario encontrado y no todo el modelo
     return userFound;
 }
 
@@ -30,8 +29,4 @@ async function updateUser(obj,id) {
     return updateUser;
 }
 
-module.exports = {
-    createUser: createUser,
-    updatedUser: updateUser,
-    getUser: getUser
-}
+module.exports = { createUser, updateUser, getUser }
