@@ -6,6 +6,8 @@ const {getProducts, createProduct, getProductById, updateProduct, deleteProduct}
 router.use(authenticateUser);
 
 router.get('/', async (req, res) => {
+    const { userLogged } = req.usuario;
+    console.log(userLogged);
     try {
         const products = await getProducts();
         res.status(200).send(products);

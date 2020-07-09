@@ -23,7 +23,7 @@ function authenticateUser(req, res, next) {
             return next();
         }
     } catch (err) {
-        res.status(400).send('Error al validar usuario');
+        res.status(403).send(`Error al validar usuario: ${err.message}`);
     }
 };
 
@@ -34,7 +34,7 @@ async function isAdmin(req, res, next) {
             return next();
         }
         else {
-            res.status(400).send('No dispones de permisos de Administrador!');
+            res.status(403).send('No dispones de permisos de Administrador!');
             return false;
         }
 }

@@ -3,8 +3,9 @@ const products = require('./server/products');
 const users = require('./server/users');
 const bodyParser = require('body-parser');
 const app = express();
+const CORS = require('cors');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json(), CORS());
 app.use('/products', products);
 app.use('/users', users);
 
