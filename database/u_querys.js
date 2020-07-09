@@ -1,8 +1,8 @@
 const SQL = require('sql-template-strings');
-const {Sequelize, sequelize, User} = require('./db_connection');
+const {Sequelize, User} = require('./db_connection');
 const Op = Sequelize.Op;
 
-async function getUser(obj) {
+async function getRegisteredUser(obj) {
     const {nombre_usuario, password} = obj;
     const userFound = await User.findOne({
         where: {
@@ -10,6 +10,15 @@ async function getUser(obj) {
                 {nombre_usuario: nombre_usuario},
                 {password: password}
             ]
+        }
+    });
+    return userFound;
+}
+
+async function getUser(username) {
+    const userFound = await User.findOne({
+        where: {
+            nombre_usuario: username
         }
     });
     return userFound;
@@ -29,4 +38,4 @@ async function updateUser(obj,id) {
     return updateUser;
 }
 
-module.exports = { createUser, updateUser, getUser }
+module.exports = { createUser, updateUser, getRegisteredUser, getUser }

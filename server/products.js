@@ -1,12 +1,17 @@
 const { Router } = require('express');
 const router = Router();
+const { authenticateUser, isAdmin } = require('./auth');
 const Pquerys = require('../database/p_querys');
 
-router.get('/', (req, res) => {
-    const products = Pquerys.getProducts();
-    products
-    .then(list => res.status(200).send(list))
-    .catch(err => console.log(err))
+router.use(authenticateUser);
+
+router.get('/', async (req, res) => {
+    try {
+        const products = await Pquerys.getProducts();
+        res.status(200).send(products);
+    } catch (err) {
+        res.status(500).json({err: 'Ocurrió un error inesperado :('});
+    }
 })
 
 router.get('/:id', (req, res) => {
@@ -17,7 +22,7 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(400).send(`Producto inexistente ${err}`))
 })
 
-router.post('/', (req, res) => {
+router.post('/', isAdmin, (req, res) => {
     const newPlato = req.body;
     const newProduct = Pquerys.createProduct(newPlato);
     newProduct

@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 const {createUser, updateUser} = require('../database/u_querys');
-const validateUser = require('./auth');
+const { validateUser } = require('./auth');
 
 router.post('/login', async (req, res) => {
     const userLogin = req.body;
@@ -10,7 +10,8 @@ router.post('/login', async (req, res) => {
         res.status(400).send('Usuario y/o contraseña incorrectos...');
         return;
     } 
-    res.status(200).send(`Bienvenido ${userLogged} y ${msj}!`);
+    res.status(200).send(`Bienvenido ${userLogged}!
+    Tu token de autenticación es: ${msj}`);
 })
 
 router.post('/register', (req, res) => {

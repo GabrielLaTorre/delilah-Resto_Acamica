@@ -47,7 +47,7 @@ const User = sequelize.define('usuarios', {
         allowNull: false,
     },
     es_admin: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
         allowNull: false,
     },
 });

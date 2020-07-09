@@ -1,14 +1,42 @@
 const jwt = require('jsonwebtoken');
 const jwtSignature = 'Delilah-Acamica2020';
-const { getUser } = require('../database/u_querys');
+const { getRegisteredUser, getUser } = require('../database/u_querys');
 
 async function validateUser(user) {
-    const validatedUser = await getUser(user)
+    const validatedUser = await getRegisteredUser(user)
     if(!validatedUser) {
         return [null];
     }
     const userLogged = validatedUser.nombre_usuario;
-    const msj = "HOLI"; // <-- Acá iria el JWT
-    return [userLogged, msj];
+    const token = jwt.sign({
+        userLogged
+    }, jwtSignature);
+    return [userLogged, token];
 }
-module.exports = validateUser;
+
+function authenticateUser(req, res, next) {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const authenticated = jwt.verify(token, jwtSignature);
+        if(authenticated){
+            req.usuario = authenticated;
+            return next();
+        }
+    } catch (err) {
+        res.status(400).send('Error al validar usuario');
+    }
+};
+
+async function isAdmin(req, res, next) {
+        const {userLogged} = req.usuario;
+        const {es_admin} = await getUser(userLogged)
+        if(es_admin == 1) {
+            return next();
+        }
+        else {
+            res.status(400).send('No dispones de permisos de Administrador!');
+            return false;
+        }
+}
+
+module.exports = { validateUser, authenticateUser, isAdmin};
