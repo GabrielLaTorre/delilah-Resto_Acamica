@@ -69,7 +69,72 @@ const Products = sequelize.define('platos', {
     }
 })
 
+const Orders = sequelize.define('pedidos', {
+    id_pedido: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true
+    },
+    detalle:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    precio_total: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    estado_pedido: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    metodo_pago: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    direccion: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    id_usuario_pedido: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: User,
+            key: 'id_usuario'
+        }
+    },
+    hora_pedido: {
+        type: Sequelize.DATE,
+        allowNull: false
+    }
+});
+
+const PxOrders = sequelize.define('platos_por_pedidos', {
+    id_plato: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        references: {
+            model: Products,
+            key: 'id_plato'
+        }
+    },
+    id_pedido: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        allowNull: false,
+        references: {
+            model: Orders,
+            key: 'id_pedido',
+        }
+    },
+    cantidad: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+    }
+})
+
 sequelize.sync()
 
 
-module.exports = { Sequelize, sequelize, User, Products }
+module.exports = { Sequelize, sequelize, User, Products, Orders, PxOrders }

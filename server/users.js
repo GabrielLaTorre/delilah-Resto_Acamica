@@ -5,13 +5,13 @@ const { validateUser } = require('./auth');
 
 router.post('/login', async (req, res) => {
     const userLogin = req.body;
-    [userLogged, msj] = await validateUser(userLogin);
+    [userLogged, token] = await validateUser(userLogin);
     if(!userLogged) {
         res.status(400).send('Usuario y/o contraseña incorrectos...');
         return;
     } 
     res.status(200).send(`Bienvenido ${userLogged}!
-    Tu token de autenticación es: ${msj}`);
+    Tu token de autenticación es: ${token}`);
 })
 
 router.post('/register', (req, res) => {
