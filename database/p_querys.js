@@ -10,6 +10,20 @@ async function getProducts() {
     }
 }
 
+async function getProductsById(arr){
+    try {
+        const listProducts = await Products.findAll({
+            where: {
+                id_plato: arr
+            },
+            raw: true
+        })
+        return listProducts;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+}
+
 async function getProductById(id) {
     const productById = await Products.findOne({
         where: {
@@ -59,4 +73,4 @@ async function deleteProduct(id) {
 }
 
 
-module.exports = {getProducts, createProduct, getProductById, updateProduct, deleteProduct};
+module.exports = {getProducts, createProduct, getProductById, updateProduct, deleteProduct, getProductsById};
