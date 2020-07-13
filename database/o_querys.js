@@ -1,15 +1,10 @@
 const { getProductsById } = require('../database/p_querys');
+const { getIdOfProducts } = require('../utils/functions');
 
-async function createOder(obj) {
-    const newOrder = obj;
-    let idProducts = [];
-    const products = newOrder.products;
-    products.forEach(element => {
-        const id = element.id_producto;
-        idProducts.push(id);
-    });
-    const platos = await getProductsById(idProducts);
-    console.log(platos);
+async function createOder(newOrder) {
+    let idProducts = getIdOfProducts(newOrder.products);
+    const orderProducts = await getProductsById(idProducts);
+    console.log(orderProducts);
 }
 
 

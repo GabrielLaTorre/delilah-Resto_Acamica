@@ -76,10 +76,6 @@ const Orders = sequelize.define('pedidos', {
         allowNull: false,
         autoIncrement: true
     },
-    detalle:{
-        type: Sequelize.STRING,
-        allowNull: false
-    },
     precio_total: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -103,7 +99,7 @@ const Orders = sequelize.define('pedidos', {
             key: 'id_usuario'
         }
     },
-    hora_pedido: {
+    feha_pedido: {
         type: Sequelize.DATE,
         allowNull: false
     }
