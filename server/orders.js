@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     const order = req.body;
     const { userLogged } = req.usuario;
     const orderCreated = await createOrder(order, userLogged);
-    res.status(201).send(`Precio total: ${orderCreated}`);
+    res.status(201).send(orderCreated);
 });
 
 router.put('/', (req, res) => {

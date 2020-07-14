@@ -15,15 +15,18 @@ async function createOrder(newOrder, username) {
         const orderDate = moment.format('YYYY-MM-DD HH:mm:ss');
         const nuevoPedido = {
             precio_total: totalPrice,
-            estado_pedido: 1,
+            estado_pedido: "Nuevo",
             metodo_pago: newOrder.metodo_pago,
             direccion: userLogued.direccion,
             id_usuario_pedido: userLogued.id_usuario,
             fecha_pedido: orderDate
         };
         const orderCreated = insertOrder(nuevoPedido);
-        console.log(orderCreated);
-        return (totalPrice);
+        //Llamar función que inserte registros en "platos_por_pedido"
+        //pasarle como parámetros el id del pedido y un array con los id de los platos
+        // Ej: id_pedido: 1 id_plato:3 cantidad:4
+        
+        return (orderCreated);
     } catch (err) {
         return err.message;
     }

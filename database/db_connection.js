@@ -81,11 +81,11 @@ const Orders = sequelize.define('pedidos', {
         allowNull: false
     },
     estado_pedido: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     },
     metodo_pago: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     },
     direccion: {
