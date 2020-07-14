@@ -11,24 +11,25 @@ async function getProducts() {
 }
 
 async function getProductsById(arr){
-    try {
-        const listProducts = await Products.findAll({
-            where: {
-                id_plato: arr
-            },
-            raw: true
-        })
-        return listProducts;
-    } catch (err) {
-        throw new Error(err.message);
+    const listProducts = await Products.findAll({
+        where: {
+            id_plato: arr
+        },
+        raw: true,
+        rejectOnEmpty: true
+    });
+    if(listProducts.length < arr.length) {
+        throw new Error("Error, revisa los id de los productos!");
     }
+    return listProducts;
 }
 
 async function getProductById(id) {
     const productById = await Products.findOne({
         where: {
             id_plato : id
-        }
+        },
+        raw: true
     })
     if(!productById) {
         throw new Error(`Producto con id: ${id}, inexistente!`)

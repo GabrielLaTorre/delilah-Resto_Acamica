@@ -19,7 +19,8 @@ async function getUser(username) {
     const userFound = await User.findOne({
         where: {
             nombre_usuario: username
-        }
+        },
+        raw: true
     });
     return userFound;
 }

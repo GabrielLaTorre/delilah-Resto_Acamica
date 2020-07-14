@@ -99,7 +99,7 @@ const Orders = sequelize.define('pedidos', {
             key: 'id_usuario'
         }
     },
-    feha_pedido: {
+    fecha_pedido: {
         type: Sequelize.DATE,
         allowNull: false
     }
