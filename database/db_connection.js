@@ -130,7 +130,5 @@ const PxOrders = sequelize.define('platos_por_pedidos', {
     }
 })
 
-sequelize.sync()
-
 
 module.exports = { Sequelize, sequelize, User, Products, Orders, PxOrders }

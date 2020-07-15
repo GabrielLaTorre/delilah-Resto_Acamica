@@ -1,7 +1,7 @@
 function getIdOfProducts(arr) {
     let id_array = [];
     arr.forEach(element => {
-        const id = element.id_producto;
+        const id = element.id_plato;
         id_array.push(id)
     })
     return id_array;
@@ -12,7 +12,7 @@ function getProductsPrices(arrP, arrC) {
     for (let i = 0; i < arrP.length; i++) {
         const product = arrP[i];
         const price = product.precio_plato;
-        const cantidad = arrC.find(element => element.id_producto == product.id_plato).cantidad;
+        const cantidad = arrC.find(element => element.id_plato == product.id_plato).cantidad;
         const newPrice = price * cantidad;
         newArr.push(newPrice);
     }
