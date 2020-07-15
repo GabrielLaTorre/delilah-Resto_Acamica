@@ -26,8 +26,8 @@ async function getUser(username) {
 }
 
 async function createUser(obj) {
-    const userCreated = User.create(obj)
-    return userCreated;
+    const userCreated = await User.create(obj)
+    return userCreated.id_usuario;
 }
 
 async function updateUser(obj,id) {
@@ -36,7 +36,7 @@ async function updateUser(obj,id) {
             id_usuario: id
         }
     })
-    return updateUser;
+    return updatedUser[0];
 }
 
 module.exports = { createUser, updateUser, getRegisteredUser, getUser }

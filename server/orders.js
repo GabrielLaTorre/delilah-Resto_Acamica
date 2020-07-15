@@ -12,7 +12,6 @@ router.get('/', isAdmin, async(req, res) => {
     } catch (error) {
         res.status(400).send('Ocurrió un error :(')
     }
-
 });
 
 router.post('/', async (req, res) => {

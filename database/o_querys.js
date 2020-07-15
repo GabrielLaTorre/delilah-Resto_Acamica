@@ -31,7 +31,6 @@ async function createOrder(newOrder, username) {
         const totalPrice = getTotalPrice(newPrices);
         const userLogued = await getUser(username);
         const orderDate = moment.format('YYYY-MM-DD HH:mm:ss');
-        console.log(orderDate);
         const nuevoPedido = {
             precio_total: totalPrice,
             estado_pedido: "Nuevo",
@@ -60,7 +59,6 @@ function insertPxOrder(id, array) {
             };
         return created
     });
-    console.log(register);
     PxOrders.bulkCreate(register);
     return register;
 }
