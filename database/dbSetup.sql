@@ -1,0 +1,8 @@
+---------------------------------------------------------------------------------------------------------------------------------
+-- Querys para crear las tablas necesarias
+
+CREATE TABLE IF NOT EXISTS `usuarios` (`id_usuario` INTEGER NOT NULL auto_increment , `nombre_usuario` VARCHAR(255) NOT NULL, `nombre_apellido` VARCHAR(255) NOT NULL, `email` VARCHAR(255) NOT NULL, `direccion` VARCHAR(255) NOT NULL, `telefono` INTEGER NOT NULL, `password` VARCHAR(255) NOT NULL, `es_admin` INTEGER NOT NULL, PRIMARY KEY (`id_usuario`)) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS `platos` (`id_plato` INTEGER NOT NULL auto_increment , `nombre_plato` VARCHAR(255) NOT NULL, `precio_plato` INTEGER NOT NULL, PRIMARY KEY (`id_plato`)) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS `pedidos` (`id_pedido` INTEGER NOT NULL auto_increment , `precio_total` INTEGER NOT NULL, `estado_pedido` VARCHAR(255) NOT NULL, `metodo_pago` VARCHAR(255) NOT NULL, `direccion` VARCHAR(255) NOT NULL, `id_usuario_pedido` INTEGER, `fecha_pedido` DATETIME NOT NULL, PRIMARY KEY (`id_pedido`), FOREIGN KEY (`id_usuario_pedido`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS `platos_por_pedidos` (`id_plato` INTEGER NOT NULL , `id_pedido` INTEGER NOT NULL , `cantidad` INTEGER NOT NULL, UNIQUE `platos_por_pedidos_id_plato_id_pedido_unique` (`id_plato`, `id_pedido`), PRIMARY KEY (`id_plato`, `id_pedido`), FOREIGN 
+KEY (`id_plato`) REFERENCES `platos` (`id_plato`) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`) ON DELETE CASCADE ON UPDATE CASCADE) ENGINE=InnoDB;
