@@ -138,6 +138,4 @@ Orders.belongsTo(User, {foreignKey: 'id_usuario_pedido'});
 Orders.belongsToMany(Products, {through: PxOrders, foreignKey: 'id_pedido'});
 Products.belongsToMany(Orders, {through: PxOrders, foreignKey: 'id_plato'});
 
-sequelize.sync();
-
 module.exports = { Sequelize, sequelize, User, Products, Orders, PxOrders };
