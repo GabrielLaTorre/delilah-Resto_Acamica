@@ -1,4 +1,3 @@
-const SQL = require('sql-template-strings');
 const { Products } = require('./db_connection');
 
 async function getProducts() {

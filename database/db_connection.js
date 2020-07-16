@@ -130,5 +130,9 @@ const PxOrders = sequelize.define('platos_por_pedidos', {
     }
 })
 
+User.hasMany(Orders, {foreignKey: 'id_usuario_pedido'});
+Orders.belongsTo(User, {foreignKey: 'id_usuario_pedido'});
+Orders.belongsToMany(Products, {through: PxOrders, foreignKey: 'id_pedido'});
+Products.belongsToMany(Orders, {through: PxOrders, foreignKey: 'id_plato'});
 
-module.exports = { Sequelize, sequelize, User, Products, Orders, PxOrders }
+module.exports = { Sequelize, sequelize, User, Products, Orders, PxOrders };

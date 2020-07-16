@@ -1,12 +1,42 @@
-const {Sequelize, Orders, PxOrders} = require('./db_connection');
+const {Sequelize, Orders, PxOrders, Products} = require('./db_connection');
 const { getProductsById } = require('./p_querys');
 const { getUser } = require('./u_querys');
 const { getIdOfProducts, getProductsPrices, getTotalPrice } = require('../utils/functions');
 const Moment = require('moment');
 const moment = Moment();
 
+async function getUserOrders(username) {
+    const user = await getUser(username);
+    const userId = user.id_usuario;
+    const userOrders = await Orders.findAll({
+        include: [
+            {
+                model: Products,
+                through: {
+                    as: 'PxO',
+                    attributes: ['cantidad']
+                }
+            }
+        ],
+        where: {
+            id_usuario_pedido: userId
+        }
+    });
+    return userOrders;
+}
+
 async function getAllOrders(){
-    const ordersFound = await Orders.findAll();
+    const ordersFound = await Orders.findAll({
+        include: [
+            {
+                model: Products,
+                through: {
+                    as: 'PxO',
+                    attributes: ['cantidad']
+                }
+            }
+        ],
+    });
     return ordersFound;
 }
 
@@ -72,5 +102,27 @@ async function insertOrder(obj) {
     }
 }
 
+async function deleteOrder(id) {
+    try {
+        const registerDeleted = await PxOrders.destroy({
+            where: {
+                id_pedido: id
+            }
+        });
+        if (registerDeleted != 0) {
+            const deleted = await Orders.destroy({
+                where: {
+                    id_pedido: id
+                }
+            });
+            return deleted
+        } else {
+            throw new Error('No pudo eliminarse el registro del pedido!');
+        }
+    } catch (error) {
+        return error.message
+    }
+}
 
-module.exports = { createOrder, getAllOrders, updateOrder};
+
+module.exports = { createOrder, getAllOrders, updateOrder, getAllOrders, deleteOrder, getUserOrders};

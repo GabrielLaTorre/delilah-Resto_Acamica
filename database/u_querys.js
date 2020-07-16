@@ -1,4 +1,3 @@
-const SQL = require('sql-template-strings');
 const {Sequelize, User} = require('./db_connection');
 const Op = Sequelize.Op;
 

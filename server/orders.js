@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const { authenticateUser, isAdmin } = require('./auth');
-const { createOrder, getAllOrders, updateOrder } = require('../database/o_querys');
+const { createOrder, getAllOrders, updateOrder, deleteOrder } = require('../database/o_querys');
 
 router.use(authenticateUser);
 
@@ -10,7 +10,7 @@ router.get('/', isAdmin, async(req, res) => {
         const orders = await getAllOrders();
         res.status(200).send(orders);
     } catch (error) {
-        res.status(400).send('Ocurrió un error :(')
+        res.status(400).send('Ocurrió un error :(' + error.message)
     }
 });
 
@@ -31,5 +31,17 @@ router.put('/:id', isAdmin, async (req, res) => {
         res.status(400).send(`Ocurrió un problema :(`);
     }
 });
+
+router.delete('/:id', isAdmin, async (req, res) => {
+    const idOrder = req.params.id;
+    const deleted = await deleteOrder(idOrder);
+    if(deleted == 1) {
+        res.status(200).send(`Order con id ${idOrder}, eliminada satisfactoriamente!`);
+    } else {
+        res.status(400).send(`
+        Ocurrió un error :( 
+            ${deleted}`)
+    }
+})
 
 module.exports = router;

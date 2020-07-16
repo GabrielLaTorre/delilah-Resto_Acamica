@@ -1,7 +1,18 @@
 const {Router} = require('express');
 const router = Router();
-const {createUser, updateUser} = require('../database/u_querys');
+const {createUser, updateUser, getUser} = require('../database/u_querys');
 const { validateUser, isAdmin, authenticateUser } = require('./auth');
+const { getUserOrders } = require('../database/o_querys');
+
+router.get('/orders', authenticateUser, async (req, res) => {
+    const username = req.usuario.userLogged;
+    const ordersFound = await getUserOrders(username);
+    if(ordersFound.length != 0){
+        res.status(200).send(ordersFound);
+    } else {
+        res.status(404).send('No hay pedidos disponibles!');
+    }
+})
 
 router.post('/login', async (req, res) => {
     const userLogin = req.body;
