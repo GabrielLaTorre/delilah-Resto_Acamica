@@ -8,7 +8,11 @@ router.use(authenticateUser);
 router.get('/', isAdmin, async(req, res) => {
     try {
         const orders = await getAllOrders();
-        res.status(200).send(orders);
+        if(orders.length != 0){
+            res.status(200).send(orders);
+        } else {
+            res.status(404).send('No hay pedidos disponibles!');
+        }
     } catch (error) {
         res.status(400).send('Ocurrió un error :(' + error.message)
     }
