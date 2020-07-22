@@ -58,7 +58,7 @@ paths:
       requestBody:
         required: true
         content:
-          'aplication/json':
+          'application/json':
             schema:
               $ref: '#/definitions/product_upload'
       responses:
