@@ -30,9 +30,9 @@ router.post('/', isAdmin, async (req, res) => {
     try {
         const newPlato = req.body;
         const newProduct = await createProduct(newPlato);
-        res.status(201).send(
-            `Producto creado satisfactoriamente! 
-            id_plato : ${newProduct.id_plato}`);
+        res.status(201).json({
+            id_plato: newProduct.id_plato
+        })
     } catch (err) {
         res.status(400).send(
             `Algo salió mal :( 
@@ -60,7 +60,7 @@ router.delete('/:id', isAdmin, async (req, res) => {
             throw new Error(`el producto no pudo ser eliminado`);
         }
     } catch (err) {
-        res.status(500).send(
+        res.status(404).send(
             `Algo salió mal :( ${err.message}`
             )}
 })

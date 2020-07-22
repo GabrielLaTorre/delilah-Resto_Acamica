@@ -26,7 +26,11 @@ async function getUser(username) {
 
 async function createUser(obj) {
     const userCreated = await User.create(obj)
-    return userCreated.id_usuario;
+    if(userCreated){
+        return userCreated.id_usuario;
+    } else {
+        throw new Error('Datos inválidos, revise todos los campos')
+    }
 }
 
 async function updateUser(obj,id) {

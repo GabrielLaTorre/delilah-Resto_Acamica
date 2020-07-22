@@ -40,7 +40,7 @@ router.delete('/:id', isAdmin, async (req, res) => {
     const idOrder = req.params.id;
     const deleted = await deleteOrder(idOrder);
     if(deleted == 1) {
-        res.status(200).send(`Order con id ${idOrder}, eliminada satisfactoriamente!`);
+        res.status(200).send(`Pedido con id ${idOrder}, eliminado satisfactoriamente!`);
     } else {
         res.status(400).send(`
         Ocurrió un error :( 

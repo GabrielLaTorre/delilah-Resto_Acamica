@@ -27,11 +27,11 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     const newUser = req.body;
-    const created = await createUser(newUser);
-    if(created){
+    try {
+        const created = await createUser(newUser);
         res.status(201).send(`Usuario creado satisfactoriamente, id: ${created}`);
-    } else {
-        res.status(400).send('Ocurrió un error :(');
+    } catch (error) {
+        res.status(400).send('Ocurrió un error :( \n' + error.message);
     }
 })
 
